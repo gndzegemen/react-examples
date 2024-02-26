@@ -1,28 +1,31 @@
 import logo from './logo.svg';
-import {useEffect} from "react";
+import { useEffect, useRef, forwardRef } from "react";
 import './/style.css'
 
+function Input(props, ref ){
+    return <input ref= {ref} type = "text" {... props}/>
+}
+
+Input = forwardRef(Input)
 
 function App() {
 
-    useEffect(()=> {
-        if(process.env.NODE_ENV === "production"){
-            //do something
-        }
-    },[])
+    const inputRef = useRef()
+    const focusInput = () => {
+
+        inputRef.current.focus()
+
+    }
+
     return (
-        <div className="App">
-            <h3>{process.env.NODE_ENV}</h3>
-            <p>{process.env.REACT_APP_API_URL}</p>
-            {process.env.NODE_ENV === 'production' && (
-                <>
-                    <img src="/logo192.png" alt=""/>
-                    <img src={logo} alt=""/>
+        <>
+            <h1> useRef()- useForward()</h1>
+            <Input ref={inputRef}/>
+            <button onClick={focusInput}> Focusla </button>
+            
 
-                </>
-            )}
+        </>
 
-        </div>
     );
 }
 
